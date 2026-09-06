@@ -9,50 +9,48 @@ def load_data(file_path):
 
 
 def print_data(animals):
-    print_dict = {}
-    repl_strg = ''
+    list_animals = []
     for animal in animals:
+        print_dict = {}
+        print_dict['Name'] = animal['name']
+        print_dict['Diet'] = animal["characteristics"]["diet"]
+        print_dict['Location'] = animal["locations"][0]
+        try:
+            print_dict['Type'] = animal["characteristics"]["type"]
+        except:
+            pass
+
+        for item in print_dict:
+            print(f"{item}: {print_dict[item]}")
+        print('\n')
+
+        list_animals.append(print_dict)
+
+    return list_animals
+
+
+def write_html(list_animals):
+    repl_strg = ''
+    for animal in list_animals:
+        repl_strg += '<li class="cards__item">'
         for key,value in animal.items():
-            if key == "name":
-                print_dict['Name'] = value
-            if key == "characteristics":
-                characteristics_dict = value
-                print_dict['Diet'] = characteristics_dict['diet']
-                if "type" in characteristics_dict:
-                    print_dict['Type'] = characteristics_dict['type']
-                else:
-                    print_dict['Type'] = None
-            if key == "locations":
-                    print_dict['Location'] = value[0]
-
-        print_sequence = ["Name", "Diet", "Location", "Type"]
-
-        for item in print_sequence:
-            if print_dict[item] is not None:
-                print(f"{item}: {print_dict[item]}")
-                repl_strg += f"{item}: {print_dict[item]} \n"
-        repl_strg += "\n"
-        print("\n")
-
-    return repl_strg
+            repl_strg += f"{key}: {value}<br>"
+        repl_strg += '</li>\n'
 
 
-def write_html(repl_strg):
     with open('animals_template.html', 'r') as html_file:
         html_data = html_file.read()
+
     html_data = html_data.replace("__REPLACE_ANIMALS_INFO__", repl_strg)
-    print(html_data)
 
     with open('animals_template.html', 'w') as html_file:
         html_file.write(html_data)
 
 
-
 def main():
-    data = load_data(file_path)
-    repl_strg = print_data(data)
-    write_html(repl_strg)
-
+    raw_data = load_data(file_path)
+    list_animals = print_data(raw_data)
+    write_html(list_animals)
 
 
 if __name__ == "__main__":
