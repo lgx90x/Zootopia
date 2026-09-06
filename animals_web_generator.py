@@ -3,22 +3,22 @@ import json
 file_path = 'animals_data.json'
 
 def load_data(file_path):
+    """Returns the raw data from json file."""
     with open(file_path) as json_file:
         animals = json.load(json_file)
         return animals
 
 
 def print_data(animals):
+    """Prints Name, Diet, Location, Type of each animal and return list of animal based on that information"""
     list_animals = []
     for animal in animals:
         print_dict = {}
         print_dict['Name'] = animal['name']
         print_dict['Diet'] = animal["characteristics"]["diet"]
         print_dict['Location'] = animal["locations"][0]
-        try:
+        if "type" in animal["characteristics"]:
             print_dict['Type'] = animal["characteristics"]["type"]
-        except:
-            pass
 
         for item in print_dict:
             print(f"{item}: {print_dict[item]}")
@@ -30,6 +30,7 @@ def print_data(animals):
 
 
 def write_html(list_animals):
+    """Creates the html formatting of the animal information. Writes these information into the existing html file."""
     repl_strg = ''
     for animal in list_animals:
         repl_strg += '<li class="cards__item">\n'
