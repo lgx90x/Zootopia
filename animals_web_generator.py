@@ -32,9 +32,20 @@ def print_data(animals):
 def write_html(list_animals):
     repl_strg = ''
     for animal in list_animals:
-        repl_strg += '<li class="cards__item">'
-        for key,value in animal.items():
-            repl_strg += f"{key}: {value}<br>"
+        repl_strg += '<li class="cards__item">\n'
+        repl_strg += f'  <div class="card__title">{animal["Name"]}</div>\n'
+        repl_strg += '  <p class="card__text">\n'
+
+        if "Diet" in animal:
+            repl_strg += f'    <strong>Diet:</strong> {animal["Diet"]}<br/>\n'
+
+        if "Location" in animal:
+            repl_strg += f'    <strong>Location:</strong> {animal["Location"]}<br/>\n'
+
+        if "Type" in animal:
+            repl_strg += f'    <strong>Type:</strong> {animal["Type"]}<br/>\n'
+
+        repl_strg += '  </p>\n'
         repl_strg += '</li>\n'
 
 
