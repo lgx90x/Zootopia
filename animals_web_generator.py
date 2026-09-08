@@ -1,12 +1,18 @@
 import json
+import requests
 
-file_path = 'animals_data.json'
+def get_animal():
+    is_pycharm = True
+    if is_pycharm == True:
+        headers = {'X-Api-Key': 'ZEbrw0aF3CQFx6iimrGSTg5XuRmOOVap4TdaFW6O'}
+    else:
+        headers = {'X-Api-Key': '7/sfRmTW99U9mqNPilIZiQ==dmwnYbbSH5FYz9y5'}
 
-def load_data(file_path):
-    """Returns the raw data from json file."""
-    with open(file_path) as json_file:
-        animals = json.load(json_file)
-        return animals
+    params = {'name': 'Fox'}
+    response = requests.get('https://api.api-ninjas.com/v1/animals', params, headers=headers)
+
+    data = response.json()
+    return data
 
 
 def print_data(animals):
@@ -60,7 +66,8 @@ def write_html(list_animals):
 
 
 def main():
-    raw_data = load_data(file_path)
+    raw_data = get_animal()
+    # raw_data = load_data(file_path)
     list_animals = print_data(raw_data)
     write_html(list_animals)
 
