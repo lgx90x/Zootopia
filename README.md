@@ -34,6 +34,6 @@ Then enter an animal name when prompted.
 - requests
 - python-dotenv
 
-## Contributing
+## Contributing 
 
 Contributions are welcome. Feel free to fork the repository, make changes, and submit a pull request.
