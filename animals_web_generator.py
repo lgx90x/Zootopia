@@ -35,25 +35,30 @@ def print_data(animals):
     return list_animals
 
 
-def write_html(list_animals):
+def write_html(list_animals, animal_name):
     """Creates the html formatting of the animal information. Writes these information into the existing html file."""
-    repl_strg = ''
-    for animal in list_animals:
-        repl_strg += '<li class="cards__item">\n'
-        repl_strg += f'  <div class="card__title">{animal["Name"]}</div>\n'
-        repl_strg += '  <p class="card__text">\n'
 
-        if "Diet" in animal:
-            repl_strg += f'    <strong>Diet:</strong> {animal["Diet"]}<br/>\n'
+    if list_animals != []:
+        repl_strg = ''
+        for animal in list_animals:
+            repl_strg += '<li class="cards__item">\n'
+            repl_strg += f'  <div class="card__title">{animal["Name"]}</div>\n'
+            repl_strg += '  <p class="card__text">\n'
 
-        if "Location" in animal:
-            repl_strg += f'    <strong>Location:</strong> {animal["Location"]}<br/>\n'
+            if "Diet" in animal:
+                repl_strg += f'    <strong>Diet:</strong> {animal["Diet"]}<br/>\n'
 
-        if "Type" in animal:
-            repl_strg += f'    <strong>Type:</strong> {animal["Type"]}<br/>\n'
+            if "Location" in animal:
+                repl_strg += f'    <strong>Location:</strong> {animal["Location"]}<br/>\n'
 
-        repl_strg += '  </p>\n'
-        repl_strg += '</li>\n'
+            if "Type" in animal:
+                repl_strg += f'    <strong>Type:</strong> {animal["Type"]}<br/>\n'
+
+            repl_strg += '  </p>\n'
+            repl_strg += '</li>\n'
+
+    else:
+        repl_strg = f'<h2 > The animal "{animal_name}" doesn''t exist.</h2>'
 
 
     with open('animals_template.html', 'r') as html_file:
@@ -68,9 +73,8 @@ def write_html(list_animals):
 def main():
     animal_name = input("Enter a name of an animal: ")
     raw_data = get_animal(animal_name)
-    # raw_data = load_data(file_path)
     list_animals = print_data(raw_data)
-    write_html(list_animals)
+    write_html(list_animals, animal_name)
 
 
 if __name__ == "__main__":
