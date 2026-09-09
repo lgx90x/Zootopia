@@ -1,18 +1,4 @@
-import json
-import requests
-
-def get_animal(animal_name):
-    is_pycharm = True
-    if is_pycharm == True:
-        headers = {'X-Api-Key': 'ZEbrw0aF3CQFx6iimrGSTg5XuRmOOVap4TdaFW6O'}
-    else:
-        headers = {'X-Api-Key': '7/sfRmTW99U9mqNPilIZiQ==dmwnYbbSH5FYz9y5'}
-
-    params = {'name': animal_name}
-    response = requests.get('https://api.api-ninjas.com/v1/animals', params, headers=headers)
-
-    data = response.json()
-    return data
+import data_fetcher
 
 
 def print_data(animals):
@@ -72,7 +58,7 @@ def write_html(list_animals, animal_name):
 
 def main():
     animal_name = input("Enter a name of an animal: ")
-    raw_data = get_animal(animal_name)
+    raw_data = data_fetcher.fetch_data(animal_name)
     list_animals = print_data(raw_data)
     write_html(list_animals, animal_name)
 
