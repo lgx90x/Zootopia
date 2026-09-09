@@ -1,6 +1,10 @@
+import os
+from dotenv import load_dotenv
 import requests
-import json
 
+
+load_dotenv()
+API_KEY = os.getenv('API_KEY')
 
 def fetch_data(animal_name):
   """
@@ -19,7 +23,6 @@ def fetch_data(animal_name):
     }
   },
   """
-  API_KEY = 'ZEbrw0aF3CQFx6iimrGSTg5XuRmOOVap4TdaFW6O'
 
   headers = {'X-Api-Key': API_KEY}
   params = {'name': animal_name}
